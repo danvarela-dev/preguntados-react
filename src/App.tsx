@@ -1,17 +1,14 @@
 import React from "react";
-
+import data from "./data/preguntas.json"
 import "./App.css";
-import ClassPreguntas from "./components/Preguntas";
+import Preguntas from "./components/Preguntas";
 
-
-let usedQuestions = new Array(0);
 
 function App() {
- 
 
   return (
     <>
-      <ClassPreguntas ></ClassPreguntas>
+      <Preguntas preguntas={data}></Preguntas>
     </>
   );
 }

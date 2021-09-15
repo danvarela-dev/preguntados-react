@@ -1,109 +1,57 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ClassRespuestas from "./Respuestas";
-import { getIndex, getRandomNumber } from "../tools/UtilitiesClass";
+import { preguntaModel } from "../models/pregunta";
 
 
-export default function ClassPreguntas(props: any) {
-  const [preguntas, setPreguntas] = useState([
-    {
-      id: 1,
-      pregunta: "Quien es el Messi?",
-      respuesta: 1,
-    },
-    {
-      id: 2,
-      pregunta: "Quien Pablo Neruda?",
-      respuesta: 2,
-    },
-    {
-      id: 3,
-      pregunta: "De donde es Messi?",
-      respuesta: 3,
-    },
-    {
-      id: 4,
-      pregunta: "Que son los conejos?",
-      respuesta: 4,
-    },
-    {
-      id: 5,
-      pregunta: "Que son los perros?",
-      respuesta: 5,
-    },
-    {
-      id: 6,
-      pregunta: "Donde esta Francia?",
-      respuesta: 6,
-    },
-    {
-      id: 7,
-      pregunta: "Quien es goku?",
-      respuesta: 7,
-    },
-    {
-      id: 8,
-      pregunta: "Quien es Lissa Simpson?",
-      respuesta: 8,
-    },
-    {
-      id: 9,
-      pregunta: "Quien es Pedro Picapiedra?",
-      respuesta: 9,
-    },
-    {
-      id: 10,
-      pregunta: "Donde se ubica Honduras?",
-      respuesta: 10,
-    },
-  ]);
+export default function Preguntas({preguntas}) {
 
-  const [ids,setIds] = useState([]); 
-  let chosenId;
+  const [question,setQuestion] = useState<preguntaModel>({
+    pregunta: "",
+    respuesta: "",
+    opciones: []
+  });
 
-   const updateArrayValue = (value)=>{
-      const arrayvalue = [0];
-      shuffleArray(arrayvalue);
-      arrayvalue.push(value);
-      setIds(arrayvalue);
-   }
+  let ordenPreg = new Set<number>();
 
+  let iteradorPreg=useRef<any>();
 
-  const shuffleArray = (array: any[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+  let terminado=false;
+
+  useEffect(() =>{
+    random();
+    iteradorPreg.current=ordenPreg.values();
+    setQuestion(preguntas[iteradorPreg.current.next().value]);
+  },[])
+
+  const random=()=>{
+    while(ordenPreg.size!=10){
+      ordenPreg.add(Math.floor(Math.random()*10));
     }
-  };
+  }
 
-
-  const formSubmit = () => {
-    let idCur:number = getRandomNumber(9);
-    updateArrayValue(idCur);
-    console.log(idCur);
-
-    //console.log(ids);
-  };
-
-
-  let curQuestion = preguntas[getIndex(ids,chosenId)];
-
-//   chosenId = chosenId - 1;
-//   console.log("index : " + chosenId);
-//   console.log(curQuestion);
- console.log(ids);
+  const nextQuestion=()=>{
+    const valor=iteradorPreg.current.next();
+    console.log(valor);
+    if(!valor.done){
+      setQuestion(preguntas[valor.value]);
+    }else{
+      terminado=true;
+    } 
+  }
 
   return (
-    <>
-      <div
-        className="container bg-light"
-        style={{ textAlign: "left", padding: "15px" }}
-      >
-        <h1 className="container"> {curQuestion?.pregunta}</h1>
-      </div>
-      <form className="container" onSubmit={formSubmit}>
-        <ClassRespuestas chosenId={curQuestion?.respuesta}></ClassRespuestas>
-      </form>
-    </>
-  );
+    <div>
+      <h1>{question.pregunta}</h1>
+      {question.opciones.map((opcion)=>{
+        return(
+          <>
+          <input type="radio" id={opcion} name="pregunta" value={opcion}/>
+          <label>{opcion}</label>
+          </>
+        )
+      })}
+      <button onClick={nextQuestion}>click</button>
+      {terminado && <h4>Terminado</h4>}
+    </div>
+  )
 }

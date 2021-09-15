@@ -1,0 +1,112 @@
+[
+    {
+        "pregunta":"Quien es Messi?",
+        "respuesta": "Jugador de Futbol",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "definitivamente",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es Goku?",
+        "respuesta": "Sajayin",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "Sajayin",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es Mario?",
+        "respuesta": "Un Fontanero",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "Un Fontanero",
+            "definitivamente",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien fue Obama?",
+        "respuesta": "ExPresidente de USA",
+
+        "opciones": [
+            "ExPresidente de USA",
+            "no",
+            "definitivamente",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien fue Osama?",
+        "respuesta": "ExTerrorista de USA",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "ExTerrorista de USA",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es Barney?",
+        "respuesta": "Un dinosaurio",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "Un dinosaurio",
+            "definitivamente",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es Rick?",
+        "respuesta": "El abuelo de Morty",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "El abuelo de Morty",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es Bowser?",
+        "respuesta": "enemigo de Mario",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "definitivamente",
+            "enemigo de Mario"
+        ]
+    },
+    {
+        "pregunta":"Quien es Superman?",
+        "respuesta": "un super heroe",
+
+        "opciones": [
+            "Jugador de Futbol",
+            "no",
+            "un super heroe",
+            "talvez"
+        ]
+    },
+    {
+        "pregunta":"Quien es marvel?",
+        "respuesta": "un Capitan",
+
+        "opciones": [
+            "un Capitan",
+            "no",
+            "definitivamente",
+            "talvez"
+        ]
+    }
+]
