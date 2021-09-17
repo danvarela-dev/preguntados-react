@@ -21,7 +21,7 @@ export default function Preguntas({preguntas}) {
     random();
     iteradorPreg.current=ordenPreg.values();
     setQuestion(preguntas[iteradorPreg.current.next().value]);
-  },[])
+  },[]);
 
   const random=()=>{
     while(ordenPreg.size!=10){
@@ -31,12 +31,23 @@ export default function Preguntas({preguntas}) {
 
   const nextQuestion=()=>{
     const valor=iteradorPreg.current.next();
-    console.log(valor);
     if(!valor.done){
       setQuestion(preguntas[valor.value]);
     }else{
       terminado=true;
     } 
+  }
+
+  const respuestaCorrecta=()=>{
+    let puntaje=0;
+    if(question.pregunta===question.respuesta){
+      puntaje=puntaje+1;
+    }
+    return (
+      <div>
+        <h1>Tu puntaje es: {puntaje}</h1>
+      </div>
+    )
   }
 
  const [diff, setDiff]=useState(null)
@@ -63,11 +74,11 @@ export default function Preguntas({preguntas}) {
 
   return (
     <div>
-      <h1 className="timer">{timeFormat(diff)}</h1>
+      <h6 className="timer" >{timeFormat(diff)}</h6>
       <h1>{question.pregunta}</h1>
       {question.opciones.map((opcion)=>{
         return(
-          <div text-align="left">
+          <div text-align="right">
           <input type="radio" id={opcion} name="pregunta" value={opcion}/>
           <label >{opcion}</label>
           </div>
@@ -75,21 +86,21 @@ export default function Preguntas({preguntas}) {
       })}
       <div onClick={start}>
       <button onClick={nextQuestion}>click</button>
-      {terminado && <h4>Terminado</h4>}
+      <div>{terminado && <h4>Terminado: {respuestaCorrecta}</h4>}</div>
       </div>
     </div>
   )
 }
 
 const timeFormat=(date)=>{
-  if(!date) return "00:00:00";
+  if(!date) return "00";
   let mm=date.getUTCMinutes();
   let ss=date.getSeconds();
   //let cm=Math.round(date.getMilliseconds()/10);
-
-  mm=mm<10?"0"+mm:mm;
+  
+  //mm=mm<10?"0"+mm:mm;
   ss=ss<10?"0"+ss: ss;
   //cm=cm<10?"0"+cm: cm;
-
-  return `${mm}:${ss}`;
+  if(ss===10)return (<><h1>Time out!</h1></>)
+  return `${ss}`;
 };
