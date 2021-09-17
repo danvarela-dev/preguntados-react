@@ -39,19 +39,57 @@ export default function Preguntas({preguntas}) {
     } 
   }
 
+ const [diff, setDiff]=useState(null)
+ const [initial,setInitial]=useState(null)
+
+ const tick=()=>{
+   setDiff(new Date(+new Date() -initial))
+ };
+ const start=()=>{setInitial(+new Date())}
+
+ useEffect(()=>{
+   if(initial){
+     requestAnimationFrame(tick);
+   }
+ },[initial]);
+
+ useEffect(()=>{
+   if(diff){
+     requestAnimationFrame(tick);
+   }
+ },[diff]);
+
+  
+
   return (
     <div>
+      <h1 className="timer">{timeFormat(diff)}</h1>
       <h1>{question.pregunta}</h1>
       {question.opciones.map((opcion)=>{
         return(
-          <>
+          <div text-align="left">
           <input type="radio" id={opcion} name="pregunta" value={opcion}/>
-          <label>{opcion}</label>
-          </>
+          <label >{opcion}</label>
+          </div>
         )
       })}
+      <div onClick={start}>
       <button onClick={nextQuestion}>click</button>
       {terminado && <h4>Terminado</h4>}
+      </div>
     </div>
   )
 }
+
+const timeFormat=(date)=>{
+  if(!date) return "00:00:00";
+  let mm=date.getUTCMinutes();
+  let ss=date.getSeconds();
+  //let cm=Math.round(date.getMilliseconds()/10);
+
+  mm=mm<10?"0"+mm:mm;
+  ss=ss<10?"0"+ss: ss;
+  //cm=cm<10?"0"+cm: cm;
+
+  return `${mm}:${ss}`;
+};
